@@ -128,6 +128,7 @@ class Patch:
             "ret0": "48 31 C0 C3",  # xor rax, rax; ret
             "ret1": "48 31 C0 48 FF C0 C3",  # xor rax, rax; inc rax; ret
             "ret280": "48 31 C0 B8 18 01 00 00 C3",  # xor rax, rax; mov eax, 280; ret
+            "ret281": "48 31 C0 B8 19 01 00 00 C3",  # xor rax, rax; mov eax, 281; ret
         }.items()
     }
 
@@ -526,8 +527,8 @@ class PatchDB:
                     # schedule callback 2
                     "nop",
                     Sig(
-                        "41 B8 98 3A 00 00 E8 ? ? ? ?",
-                        offset=0x6,
+                        "48 8b 96 e8 02 00 00 48 8d 0d ? ? ? ? 41 b8 98 3a 00 00 e8 ? ? ? ?",
+                        offset=0x14,
                         name="license_revalidate2",
                     ),
                     # TODO: callback, ret
@@ -535,11 +536,7 @@ class PatchDB:
                 ),
                 Patch(
                     # valid enum
-                    "ret1"
-                    if self.version in (4205, 4210)
-                    else "ret280"
-                    if self.version >= 4206 and self.channel == "dev"
-                    else "ret0",
+                    "ret281",
                     Sigs(
                         "license_validate",
                         # callsite head
@@ -548,14 +545,6 @@ class PatchDB:
                             ref="call",
                             offset=0xD,
                         ),
-                        # callsite mid
-                        Sig(
-                            "45 31 ? e8 ? ? ? ? 85 c0 75 ? ? 8d",
-                            ref="call",
-                            offset=0x3,
-                        ),
-                        # callsite tail
-                        Sig("e8 ? ? ? ? ? 8b ? ? ? ? ? 85 c0 0f 94 ? ? 74", ref="call"),
                         # TODO: other callsites
                     ),
                 ),
@@ -563,9 +552,8 @@ class PatchDB:
                     # default
                     "ret0",
                     Sig(
-                        "48 8d ? ? ? ? ? e8 ? ? ? ? 48 89 c1 ff ? ? ? ? ? ? 8b",
+                        "41 57 41 56 41 54 56 57 53 48 81 ec e8 03 00 00",
                         # thread
-                        ref="lea",
                         name="online_license_notification",
                     ),
                 ),
