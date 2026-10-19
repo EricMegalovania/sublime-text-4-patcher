@@ -67,8 +67,15 @@ Report any issues at github.com/rainbowpigeon/sublime-text-4-patcher/issues!
 
 ## Screenshots
 
-![Script execution in input prompt mode](https://github.com/user-attachments/assets/6ca31604-d704-4662-8788-d75206a11c46)
+![Script execution in input prompt mode](./img/6ca31604-d704-4662-8788-d75206a11c46.png)
 
 ### Test Mode Results
 
-![Script results in test mode](https://github.com/user-attachments/assets/02e6d1e5-50d3-4c3d-b374-1bf6d00bc256)
+![Script results in test mode](./img/02e6d1e5-50d3-4c3d-b374-1bf6d00bc256.png)
+
+## 本机命令速览
+
+```bash
+pypy -m pip install pefile
+pypy sublime_text_4_patcher.py "$HOME/scoop/apps/sublime-text/current/sublime_text.exe"
+```
