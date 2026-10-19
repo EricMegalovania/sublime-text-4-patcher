@@ -78,6 +78,7 @@ Report any issues at github.com/rainbowpigeon/sublime-text-4-patcher/issues!
 ```bash
 pypy -m pip install pefile
 pypy sublime_text_4_patcher.py "$HOME/scoop/apps/sublime-text/current/sublime_text.exe"
+pypy sublime_merge_patcher.py "$HOME/scoop/apps/sublime-merge/current/sublime_merge.exe"
 ```
 
-运行完如上命令后, 打开 Sublime Text, 在 `Help -> Enter License` 随便输入任意文本即可激活
+运行完如上命令后, 打开 Sublime Text, 在 `Help -> Enter License` 随便输入任意文本即可激活; Sublime Merge 同理
